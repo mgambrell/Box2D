@@ -30,6 +30,10 @@
 #define B2_NOT_USED(x) ((void)(x))
 #define b2Assert(A) assert(A)
 
+#ifndef B2SCALE
+#define B2SCALE 100.0f
+#endif
+
 typedef signed char	int8;
 typedef signed short int16;
 typedef signed int int32;
@@ -69,7 +73,8 @@ typedef double float64;
 
 /// A small length used as a collision and constraint tolerance. Usually it is
 /// chosen to be numerically significant, but visually insignificant.
-#define b2_linearSlop			0.005f
+//#define b2_linearSlop			0.005f
+#define b2_linearSlop			0.00005f //MBG ADJUSTED
 
 /// A small angle used as a collision and constraint tolerance. Usually it is
 /// chosen to be numerically significant, but visually insignificant.
@@ -91,11 +96,11 @@ typedef double float64;
 
 /// A velocity threshold for elastic collisions. Any collision with a relative linear
 /// velocity below this threshold will be treated as inelastic.
-#define b2_velocityThreshold		1.0f
+#define b2_velocityThreshold		(1.0f*100/B2SCALE)
 
 /// The maximum linear position correction used when solving constraints. This helps to
 /// prevent overshoot.
-#define b2_maxLinearCorrection		0.2f
+#define b2_maxLinearCorrection		(0.2f*100/B2SCALE)
 
 /// The maximum angular position correction used when solving constraints. This helps to
 /// prevent overshoot.
@@ -103,7 +108,7 @@ typedef double float64;
 
 /// The maximum linear velocity of a body. This limit is very large and is used
 /// to prevent numerical problems. You shouldn't need to adjust this.
-#define b2_maxTranslation			2.0f
+#define b2_maxTranslation			(2.0f*100/B2SCALE)
 #define b2_maxTranslationSquared	(b2_maxTranslation * b2_maxTranslation)
 
 /// The maximum angular velocity of a body. This limit is very large and is used
@@ -124,7 +129,7 @@ typedef double float64;
 #define b2_timeToSleep				0.5f
 
 /// A body cannot sleep if its linear velocity is above this tolerance.
-#define b2_linearSleepTolerance		0.01f
+#define b2_linearSleepTolerance		(0.01f*100/B2SCALE)
 
 /// A body cannot sleep if its angular velocity is above this tolerance.
 #define b2_angularSleepTolerance	(2.0f / 180.0f * b2_pi)
