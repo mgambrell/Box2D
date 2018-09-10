@@ -176,6 +176,13 @@ struct b2AABB
 		return 0.5f * (upperBound - lowerBound);
 	}
 
+	float32 Right() const { return upperBound.x; }
+	float32 Left() const { return lowerBound.x; }
+	float32 Top() const { return upperBound.y; }
+	float32 Bottom() const { return lowerBound.y; }
+	b2Vec2 TopRight() const { return upperBound; }
+	b2Vec2 BottomLeft() const { return lowerBound; }
+
 	/// Get the perimeter length
 	float32 GetPerimeter() const
 	{
