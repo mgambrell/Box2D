@@ -33,6 +33,8 @@ public:
 	/// Implement b2Shape.
 	b2Shape* Clone(b2BlockAllocator* allocator) const override;
 
+	void Unclone(b2BlockAllocator* allocator) const override;
+
 	/// @see b2Shape::GetChildCount
 	int32 GetChildCount() const override;
 

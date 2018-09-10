@@ -105,6 +105,12 @@ b2Shape* b2ChainShape::Clone(b2BlockAllocator* allocator) const
 	return clone;
 }
 
+void b2ChainShape::Unclone(b2BlockAllocator* allocator) const
+{
+	this->~b2ChainShape();
+	allocator->Free((void*)this, sizeof(b2ChainShape));
+}
+
 int32 b2ChainShape::GetChildCount() const
 {
 	// edge count = vertex count - 1

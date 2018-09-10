@@ -35,6 +35,11 @@ b2Shape* b2EdgeShape::Clone(b2BlockAllocator* allocator) const
 	return clone;
 }
 
+void b2EdgeShape::Unclone(b2BlockAllocator* allocator) const
+{
+	allocator->Free((void*)this, sizeof(b2EdgeShape));
+}
+
 int32 b2EdgeShape::GetChildCount() const
 {
 	return 1;

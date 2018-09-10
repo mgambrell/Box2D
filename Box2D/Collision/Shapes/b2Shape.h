@@ -57,6 +57,8 @@ public:
 	/// Clone the concrete shape using the provided allocator.
 	virtual b2Shape* Clone(b2BlockAllocator* allocator) const = 0;
 
+	virtual void Unclone(b2BlockAllocator* allocator) const = 0;
+
 	/// Get the type of this shape. You can use this to down cast to the concrete shape.
 	/// @return the shape type.
 	Type GetType() const;

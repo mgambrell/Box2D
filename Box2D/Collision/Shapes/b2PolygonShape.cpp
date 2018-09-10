@@ -27,6 +27,11 @@ b2Shape* b2PolygonShape::Clone(b2BlockAllocator* allocator) const
 	return clone;
 }
 
+void b2PolygonShape::Unclone(b2BlockAllocator* allocator) const
+{
+	allocator->Free((void*)this, sizeof(b2PolygonShape));
+}
+
 void b2PolygonShape::SetAsBox(float32 hx, float32 hy)
 {
 	m_count = 4;

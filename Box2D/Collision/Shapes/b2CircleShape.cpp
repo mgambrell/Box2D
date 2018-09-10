@@ -27,6 +27,11 @@ b2Shape* b2CircleShape::Clone(b2BlockAllocator* allocator) const
 	return clone;
 }
 
+void b2CircleShape::Unclone(b2BlockAllocator* allocator) const
+{
+	allocator->Free((void*)this, sizeof(b2CircleShape));
+}
+
 int32 b2CircleShape::GetChildCount() const
 {
 	return 1;

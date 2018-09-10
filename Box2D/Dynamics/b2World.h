@@ -209,6 +209,8 @@ public:
 	/// @warning this should be called outside of a time step.
 	void Dump();
 
+	b2BlockAllocator* GetAllocator() { return &m_blockAllocator; } //MBG ADDITION
+
 private:
 
 	// m_flags
