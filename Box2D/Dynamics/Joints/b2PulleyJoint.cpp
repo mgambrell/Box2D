@@ -121,6 +121,23 @@ void b2PulleyJoint::InitVelocityConstraints(const b2SolverData& data)
 		m_uB.SetZero();
 	}
 
+	//MBG:
+	//if the length is less than the constant, THERE ARE NO CONSTRAINTS!
+	float32 currLength = lengthA + lengthB;
+	if(currLength <= (m_constant)) // b2_linearSlop ?
+	{
+		//printf("unconstrained (length %f with limit %f)\n",currLength,m_constant);
+		m_constrained = false;
+	}
+	else 
+	{
+		//printf("CONSTRAINED (length %f with limit %f)\n",currLength,m_constant);
+		m_constrained = true;
+	}
+
+	if(!m_constrained)
+		return;
+
 	// Compute effective mass.
 	float32 ruA = b2Cross(m_rA, m_uA);
 	float32 ruB = b2Cross(m_rB, m_uB);
@@ -162,6 +179,9 @@ void b2PulleyJoint::InitVelocityConstraints(const b2SolverData& data)
 
 void b2PulleyJoint::SolveVelocityConstraints(const b2SolverData& data)
 {
+	if(!m_constrained) 
+		return;
+
 	b2Vec2 vA = data.velocities[m_indexA].v;
 	float32 wA = data.velocities[m_indexA].w;
 	b2Vec2 vB = data.velocities[m_indexB].v;
@@ -189,6 +209,9 @@ void b2PulleyJoint::SolveVelocityConstraints(const b2SolverData& data)
 
 bool b2PulleyJoint::SolvePositionConstraints(const b2SolverData& data)
 {
+	if(!m_constrained)
+		return true;
+
 	b2Vec2 cA = data.positions[m_indexA].c;
 	float32 aA = data.positions[m_indexA].a;
 	b2Vec2 cB = data.positions[m_indexB].c;

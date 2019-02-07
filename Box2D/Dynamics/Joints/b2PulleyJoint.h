@@ -147,6 +147,7 @@ protected:
 	float32 m_invIA;
 	float32 m_invIB;
 	float32 m_mass;
+	bool m_constrained;
 };
 
 #endif
